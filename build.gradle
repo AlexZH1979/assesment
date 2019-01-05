@@ -1,5 +1,26 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+}
+
+
 plugins {
     id 'java'
+    id 'net.ltgt.apt' version '0.10'
+    id "org.springframework.boot" version "2.1.1.RELEASE"
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+}
+
+subprojects {
+    version = '1.0'
 }
 
 group 'ru.zhmyd'
@@ -9,8 +30,14 @@ sourceCompatibility = 11
 
 repositories {
     mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    apt group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.1.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.1.RELEASE'
 }
